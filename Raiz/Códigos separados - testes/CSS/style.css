@@ -65,11 +65,14 @@ form textarea {
     margin-left: 100px;
 }
 
-
+.botoes {
+    display: flex;
+    justify-content: center; 
+    margin-top: 15px;
+}
 
 
 form button {
-    margin-left: 350px;
     padding: 10px 25px;
     border: none;
     border-radius: 4px;
@@ -138,3 +141,21 @@ a {
     left: 20px;
 }
 
+.senha-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.senha-container input {
+    flex: 1;
+    padding-right: 35px; 
+}
+
+.toggle-senha {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #929ea1;
+    user-select: none;
+}

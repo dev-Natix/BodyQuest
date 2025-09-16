@@ -72,3 +72,14 @@ document.querySelector('form').addEventListener('submit', function (event) {
         container.appendChild(el);
     }
 });
+
+function toggleSenha(id, el) {
+    const input = document.getElementById(id);
+    if (input.type === "password") {
+        input.type = "text";
+        el.textContent = "🔒"; 
+    } else {
+        input.type = "password";
+        el.textContent = "👁️"; 
+    }
+}
