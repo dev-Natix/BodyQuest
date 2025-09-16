@@ -3,6 +3,7 @@ document.querySelector('form').addEventListener('submit', function (event) {
     const inputs = document.querySelectorAll('.input');
     const container = document.querySelector('.container');
 
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
 
     const errors = [];
 
@@ -13,7 +14,6 @@ document.querySelector('form').addEventListener('submit', function (event) {
         });
     });
 
-
     inputs.forEach(input => {
         if (input.value.trim() === "") {
             is_valid = false;
@@ -23,14 +23,19 @@ document.querySelector('form').addEventListener('submit', function (event) {
 
     if (!is_valid) {
         event.preventDefault();
+        errors.push("Por favor, preencha todos os campos obrigatórios.");
+    }
+
+    if (errors.length > 0) {
         const el = document.createElement('h3');
         el.classList.add('error-message');
-        el.textContent = "Por favor, preencha todos os campos.";
+        el.textContent = errors[0];
         el.style.color = "#F05656";
         el.style.margin = "8px 0 0 0";
         container.appendChild(el);
     }
 });
+
 
 function toggleSenha(id, el) {
     const input = document.getElementById(id);
