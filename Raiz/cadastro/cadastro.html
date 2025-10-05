@@ -5,17 +5,18 @@
     <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="images/Top.png">
+    <link rel="stylesheet" href="cadastro.css">
+    <link rel="icon" href="../images/Top.png">
+    <script src="cadastro.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <a href="hub.html">
-        <img class="logo" src="images/Logo.png" alt="">
+        <a href="../Main/index.html">
+        <img class="logo" src="../images/Logo.png" alt="">
         </a>
         <h2>Cadastro</h2>
-        <form action="php/cadastro.php" method="POST" autocomplete="off">
+        <form action="cadastro.php" method="POST" autocomplete="off">
             <label for="nome"></label>
             <input class="input" type="text" id="nome" name="nome_cadastro" placeholder="Nome completo">
 
@@ -41,7 +42,7 @@
             <div>
                 <label for="termos">
                     <input type="checkbox" id="termos" name="termos" required>
-                    Aceito os <a href="termos.html">termos de uso</a>
+                    Aceito os <a href="../testes/termos.html">termos de uso</a>
                 </label>
                 
             </div>
@@ -52,12 +53,12 @@
             </div>
 
             <p style="text-align:center; margin-top:15px; color:#cfd7d8;">
-                Já possui uma conta? <a href="login.html">Faça login</a>
+                Já possui uma conta? <a href="../login/login.html">Faça login</a>
             </p>
 
         </form>
     </div>
-    <script src="js/index.js"></script>
+    
 </body>
 
 </html> 
