@@ -1,0 +1,215 @@
+
+/* ===============================
+   Tarefas (Metas Diárias)
+   Follows the visual language from global.css / standard.css
+   =============================== */
+
+:root{
+  /* uses existing tokens from global.css */
+  --table-border: rgba(255,255,255,.08);
+  --table-hover: rgba(255,255,255,.04);
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+/* layout */
+.page-wrap{
+  padding-block: 28px 42px;
+}
+.page-wrap .container{
+  display: grid;
+  gap: 18px;
+}
+
+/* header actions */
+#addTaskBtn{
+  display:block;
+  width:max-content;
+  margin-inline: auto;
+}
+
+.sidebar #addTaskBtn{
+  position: static;
+  width: auto;
+  height: auto;
+  border-radius: 999px;
+}
+
+.btn.btn--sn{
+  padding: .58rem .9rem;
+  font-weight: 700;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background:  linear-gradient(90deg, #ff3b3b, #ff6a3d);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+.btn.btn--sn:hover{ filter: brightness(1.05); }
+
+/* table */
+#tasksTable{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid var(--table-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+#tasksTable thead th{
+  text-align: left;
+  font-weight: 800;
+  letter-spacing: .3px;
+  color: var(--text);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--table-border);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+#tasksTable tbody td{
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--table-border);
+  color: var(--muted);
+}
+#tasksTable tbody tr:last-child td{ border-bottom: 0; }
+
+#tasksTable tbody tr:hover{
+  background: var(--table-hover);
+}
+
+/* badges for status inside table cells (optional) */
+.badge{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-weight:700; font-size:.875rem; line-height:1;
+  padding:.45rem .7rem; border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+}
+.badge.ok{ color:#d9ffe5; border-color: rgba(34,197,94,.35); box-shadow: 0 0 0 .12rem rgba(34,197,94,.18); }
+.badge.warn{ color:#fff3d6; border-color: rgba(245,158,11,.35); box-shadow: 0 0 0 .12rem rgba(245,158,11,.18); }
+.badge.fail{ color:#ffe0e0; border-color: rgba(239,68,68,.35); box-shadow: 0 0 0 .12rem rgba(239,68,68,.18); }
+
+/* action buttons inside table */
+.table-actions{
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.btn.icon{
+  width: 36px; height: 36px; padding: 0; border-radius: 10px;
+  display:inline-grid; place-items:center;
+  background: transparent; color: var(--text);
+  border:1px solid rgba(255,255,255,.12);
+}
+.btn.icon:hover{ background: rgba(255,255,255,.06); }
+
+/* dialog (native <dialog>) */
+dialog#taskDialog{
+  width: min(640px, 92vw);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: calc(var(--radius) + 4px);
+  background: linear-gradient(180deg, var(--card), rgba(17,18,24,.92));
+  color: var(--text);
+  padding: 0;
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+}
+dialog::backdrop{
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+}
+#taskDialog > h2{
+  margin: 0;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  color: var(--headline);
+  letter-spacing:.2px;
+}
+
+#taskDialog form{ padding: 16px 20px 20px; }
+
+.dialog-content{
+  display: grid;
+  gap: 14px;
+  margin-block: 6px 14px;
+}
+
+.input-group{
+  display: grid;
+  gap: 8px;
+}
+
+.input-group label{
+  font-weight: 700;
+  color: var(--muted);
+}
+.input-group input,
+.input-group select{
+  width: 100%;
+  padding: .82rem .9rem;
+  border-radius: 12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  outline: none;
+  transition: .15s ease;
+  box-shadow: 0 0 0 0 rgba(255,106,91,0);
+}
+.input-group input::placeholder{ color: #9aa3b2; opacity: .85; }
+.input-group input:focus,
+.input-group select:focus{
+  border-color: rgba(255,106,91,.45);
+  box-shadow: var(--ring);
+}
+
+.dialog-buttons{
+  display: flex; gap: 10px; justify-content: end; margin-top: 6px;
+}
+.cancel-btn,
+.save-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:.78rem 1rem; border-radius: 12px; font-weight:800; letter-spacing:.2px;
+  border:1px solid rgba(255,255,255,.14); cursor:pointer;
+}
+.cancel-btn{ background: transparent; color: #d6dbe6; }
+.cancel-btn:hover{ background: rgba(255,255,255,.06); }
+.save-btn{
+  background: linear-gradient(180deg, var(--accent), #ff4d3d);
+  border: none; color: #fff; box-shadow: 0 12px 26px rgba(255,77,61,.28);
+}
+.save-btn:hover{ filter: brightness(1.06); }
+
+/* helpers */
+.table-wrap{
+  overflow:auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* responsive: stack rows on small screens for readability */
+@media (max-width: 720px){
+  #tasksTable thead{ display: none; }
+  #tasksTable, #tasksTable tbody, #tasksTable tr, #tasksTable td{ display:block; width:100%; }
+  #tasksTable tr{
+    background: transparent;
+    border-bottom: 1px solid var(--table-border);
+    padding-block: 6px;
+  }
+  #tasksTable tbody td{
+    border: 0;
+    padding: 10px 16px;
+    position: relative;
+  }
+  #tasksTable tbody td::before{
+    content: attr(data-label);
+    display:block;
+    font-size:.78rem; text-transform:uppercase; letter-spacing:.06em;
+    opacity:.75; margin-bottom: 3px; color:#cfd3dc;
+  }
+}
+
+/* spacing around footer so it doesn't stick to table on short pages */
+body > footer{ margin-top: 24px; }

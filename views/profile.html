@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BodyQuest - Perfil</title>
+    <link rel="stylesheet" href="/assets/stylesheets/global.css">
+    <link rel="stylesheet" href="/assets/stylesheets/standard.css">
+    <link rel="stylesheet" href="/assets/stylesheets/profile.css">
+</head>
+<body class="body-wrap">
+    <div data-include="/views/components/navbaar.html"></div>
+    
+
+    <!-- Perfil / Questionário -->
+<section id="perfil" class="container">
+  <div class="form-card">
+    <h2 class="h2">Monte seu perfil</h2>
+    <p class="p">Esses dados ajudam a personalizar seus desafios e metas.</p>
+
+    <form id="form-perfil" class="form" method="post" action="" novalidate>
+      <!-- Peso -->
+      <div class="field">
+        <label class="label" for="peso">Peso (kg)</label>
+        <input class="input" id="peso" name="peso" type="number" step="0.1" placeholder="Ex.: 72.5">
+        <small class="error" id="e-peso"></small>
+      </div>
+
+      <!-- Altura -->
+      <div class="field">
+        <label class="label" for="altura">Altura (m)</label>
+        <input class="input" id="altura" name="altura" type="number" step="0.01" placeholder="Ex.: 1.75">
+        <small class="error" id="e-altura"></small>
+      </div>
+
+      <!-- Gênero -->
+      <fieldset class="field">
+        <legend class="label">Gênero</legend>
+        <div class="options">
+          <label class="option"><input type="radio" name="genero" value="masculino"> <span>Masculino</span></label>
+          <label class="option"><input type="radio" name="genero" value="feminino"> <span>Feminino</span></label>
+          <label class="option"><input type="radio" name="genero" value="outro"> <span>Outro / Prefiro não dizer</span></label>
+        </div>
+        <small class="error" id="e-genero"></small>
+      </fieldset>
+
+      <!-- Objetivo de treino (checkbox) -->
+      <fieldset class="field">
+        <legend class="label">Objetivo de treino</legend>
+        <div class="options">
+          <label class="option"><input type="checkbox" id="t-muscu" name="objetivoTreino[]" value="musculacao"> <span>Musculação</span></label>
+          <label class="option"><input type="checkbox" id="t-corrida" name="objetivoTreino[]" value="corrida"> <span>Corrida</span></label>
+        </div>
+        <small class="error" id="e-treino"></small>
+      </fieldset>
+
+      <!-- Objetivo de peso (radio) -->
+      <fieldset class="field">
+        <legend class="label">Objetivo de peso</legend>
+        <div class="options">
+          <label class="option"><input type="radio" name="objetivoPeso" value="ganhar"> <span>Ganhar massa</span></label>
+          <label class="option"><input type="radio" name="objetivoPeso" value="perder"> <span>Perder gordura</span></label>
+          <label class="option"><input type="radio" name="objetivoPeso" value="manter"> <span>Manter o peso</span></label>
+        </div>
+        <small class="error" id="e-opeso"></small>
+      </fieldset>
+
+      <div class="dialog actions" style="margin:0; padding:0; border:none; box-shadow:none;">
+        <button class="btn primary" type="submit">Salvar perfil</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+
+
+    <div data-include="/views/components/footer.html"></div>
+
+    <script src="/assets/javascript/includes.js"></script>
+    <script src="/assets/javascript/profile.js"></script>
+</body>
+</html>
