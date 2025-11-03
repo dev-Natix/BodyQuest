@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metas Diárias</title>
+    <link rel="stylesheet" href="/assets/stylesheets/global.css">
+    <link rel="stylesheet" href="/assets/stylesheets/standard.css">
+    <link rel="stylesheet" href="/assets/stylesheets/tarefas.css">
+</head>
+
+<body>
+
+    <div data-include="/views/components/navbaar.html"></div>
+
+
+    <div class="page-wrap">
+        <div class="container">
+            <div class="actions" style="margin:12px 0 18px; display:flex; gap:10px;">
+                <button class="btn btn--sn" id="addTaskBtn">Adicionar metas</button>
+            </div>
+
+            <div class="table-wrap">
+                <table id="tasksTable">
+                    <thead>
+                        <tr>
+                            <th>Dia</th>
+                            <th>Metas concluídas</th>
+                            <th>Alterar</th>
+                            <th>Ver metas</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Dialog -->
+    <dialog id="taskDialog">
+        <h2>Adicionar metas</h2>
+        <form id="taskForm">
+            <div class="dialog-content">
+                <div class="input-group">
+                    <label for="treino">Treino realizado:</label>
+                    <select id="treino">
+                        <option value="Nenhum">Nenhum</option>
+                        <option value="Peito e Triceps">Peito e Tríceps</option>
+                        <option value="Costas e Biceps">Costas e Bíceps</option>
+                        <option value="Pernas e Ombro">Pernas e Ombro</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="agua">Quantidade de água (L):</label>
+                    <input type="number" id="agua" placeholder="Ex: 3,5" min="0" step="0.1" inputmode="decimal">
+                </div>
+
+                <div class="input-group">
+                    <label for="sono">Quantidade de sono:</label>
+                    <select id="sono">
+                        <option value="mais de 8h">Mais de 8h</option>
+                        <option value="6h à 8h">6h à 8h</option>
+                        <option value="4h à 5h">4h à 5h</option>
+                        <option value="menos de 4h">Menos de 4h</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="dialog-buttons">
+                <button type="button" id="cancelBtn" class="cancel-btn">Cancelar</button>
+                <button type="submit" id="submitBtn" class="save-btn" data-action="salvar">Salvar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div data-include="/views/components/footer.html"></div>
+
+    <script src="/assets/javascript/includes.js"></script>
+    <script src="/assets/javascript/tarefas.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+
+
+/* container já existe no site — só garantimos largura confortável */
+#perfil.container{
+  max-width: min(960px, 92vw);
+  margin-inline: auto;
+}
+
+/* Cartão do formulário */
+.form-card{
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(16px, 2vw, 28px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
+}
+
+/* Texto de apoio abaixo do h2 */
+#perfil .p{
+  color: var(--text-2);
+  margin-top: 6px;
+}
+
+/* Grid base do form */
+.form{
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+/* Field e rótulos */
+.field{
+  display: grid;
+  gap: 8px;
+}
+
+.label, fieldset > legend.label{
+  color: var(--text-1);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Inputs */
+.input{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--surface-1);
+  border: 1px solid grey;
+  color: var(--text-1);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.input::placeholder{ color: var(--text-2); }
+
+.input:focus{
+  border-color: color-mix(in oklab, var(--brand) 70%, white);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand) 25%, transparent);
+  background: rgba(255,255,255,0.08);
+}
+
+/* remove spinners do number */
+.input[type="number"]::-webkit-outer-spin-button,
+.input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance: none; margin: 0; }
+.input[type="number"]{ -moz-appearance: textfield; }
+
+/* Fieldset sem bordas */
+fieldset.field{
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Opções (radio/checkbox) em grid responsivo */
+.options{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+}
+
+.option{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--text-1);
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+.option:hover{
+  border-color: color-mix(in oklab, var(--brand) 40%, white);
+  background: rgba(255,255,255,0.08);
+}
+
+.option input{
+  width: 18px;
+  height: 18px;
+  accent-color: var(--brand);
+}
+
+/* Erros de validação */
+.error{
+  display: block;
+  min-height: 1.1em; /* evita "pular" layout quando erro aparece */
+  font-size: .875rem;
+  color: var(--danger);
+}
+
+/* Ações (botão) */
+.dialog.actions{
+  margin-top: var(--space-5) !important;
+}
+
+.btn.primary{
+  /* assume seu botão global; reforço de altura mínima */
+  min-height: 44px;
+  padding-inline: 18px;
+}
+
+/* Estados inválidos (caso você adicione .is-invalid no campo) */
+.field.is-invalid .input,
+.input:invalid{
+  border-color: color-mix(in oklab, var(--danger) 70%, black);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--danger) 25%, transparent);
+}
+
+/* Responsividade fina */
+@media (max-width: 520px){
+  .options{ grid-template-columns: 1fr; }
+  .form{ gap: var(--space-3); }
+  .btn.primary{ width: 100%; }
+}
