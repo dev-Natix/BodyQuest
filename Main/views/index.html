@@ -238,19 +238,16 @@
   <script src="../assets/javascript/includes.js"></script>
   
     <script>
-  // Função para abrir o modal correspondente
   function openModal(id) {
     document.getElementById(id).classList.add('open');
   }
 
-  // Ao carregar a página, verifica se tem ?show=login na URL
   const params = new URLSearchParams(window.location.search);
   if (params.get('show') === 'login') {
-    // Fecha o modal de cadastro, se estiver aberto
+
     const cadModal = document.getElementById('cadastro');
     if (cadModal) cadModal.classList.remove('open');
 
-    // Abre o modal de login
     openModal('login');
   }
 </script>

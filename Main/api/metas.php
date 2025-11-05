@@ -10,13 +10,11 @@ header('Content-Type: application/json; charset=utf-8');
 
 include_once 'config.php';
 
-// TENTA pegar o id da sessão
 $usuarioId = $_SESSION['id'] 
     ?? $_SESSION['user_id'] 
     ?? $_SESSION['usuario_id'] 
     ?? null;
 
-// 🔹 AJUSTE TEMPORÁRIO: se não tiver sessão, usa usuário 1 (pra testar)
 if (!$usuarioId) {
     $usuarioId = 1;
 }

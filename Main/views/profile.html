@@ -13,28 +13,25 @@
     <div data-include="../views/components/navbaar.html"></div>
     
 
-    <!-- Perfil / Questionário -->
 <section id="perfil" class="container">
   <div class="form-card">
     <h2 class="h2">Monte seu perfil</h2>
     <p class="p">Esses dados ajudam a personalizar seus desafios e metas.</p>
 
     <form id="form-perfil" class="form" method="post" action="" novalidate>
-      <!-- Peso -->
+ 
       <div class="field">
         <label class="label" for="peso">Peso (kg)</label>
         <input class="input" id="peso" name="peso" type="number" step="0.1" placeholder="Ex.: 72.5">
         <small class="error" id="e-peso"></small>
       </div>
 
-      <!-- Altura -->
       <div class="field">
         <label class="label" for="altura">Altura (m)</label>
         <input class="input" id="altura" name="altura" type="number" step="0.01" placeholder="Ex.: 1.75">
         <small class="error" id="e-altura"></small>
       </div>
 
-      <!-- Gênero -->
       <fieldset class="field">
         <legend class="label">Gênero</legend>
         <div class="options">
@@ -45,7 +42,6 @@
         <small class="error" id="e-genero"></small>
       </fieldset>
 
-      <!-- Objetivo de treino (checkbox) -->
       <fieldset class="field">
         <legend class="label">Objetivo de treino</legend>
         <div class="options">
@@ -55,7 +51,6 @@
         <small class="error" id="e-treino"></small>
       </fieldset>
 
-      <!-- Objetivo de peso (radio) -->
       <fieldset class="field">
         <legend class="label">Objetivo de peso</legend>
         <div class="options">
