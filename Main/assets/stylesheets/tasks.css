@@ -211,5 +211,66 @@ dialog::backdrop{
   }
 }
 
+/* ===============================
+   Dialog de visualização de metas (viewDialog)
+   mesmo estilo do taskDialog
+   =============================== */
+
+dialog#viewDialog{
+  width: min(520px, 92vw);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: calc(var(--radius) + 4px);
+  background: linear-gradient(180deg, var(--card), rgba(17,18,24,.92));
+  color: var(--text);
+  padding: 0;
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+}
+
+/* título do modal */
+#viewDialog > h2{
+  margin: 0;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  color: var(--accent);              /* mesmo laranja/vermelho do site */
+  letter-spacing: .2px;
+  font-size: 1.05rem;
+}
+
+/* corpo do modal */
+#viewDialog .dialog-content{
+  padding: 14px 20px 10px;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+/* linha: label à esquerda, valor à direita */
+#viewDialog .dialog-content p{
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: .9rem;
+}
+
+/* label (Treino:, Água:, etc) */
+#viewDialog .dialog-content p strong{
+  color: var(--muted);
+  font-weight: 700;
+}
+
+/* área de botões, reaproveitando .cancel-btn/.save-btn */
+#viewDialog .dialog-buttons{
+  padding: 0 20px 16px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+
 /* spacing around footer so it doesn't stick to table on short pages */
 body > footer{ margin-top: 24px; }
+
+

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Metas Diárias</title>
+    <link rel="icon" href="../assets/images/iconbodyquest.png" type="image/png">
     <link rel="stylesheet" href="../assets/stylesheets/global.css">
     <link rel="stylesheet" href="../assets/stylesheets/standard.css">
     <link rel="stylesheet" href="../assets/stylesheets/tasks.css">
@@ -54,6 +55,7 @@
                         <option value="Pernas e Ombro">Pernas e Ombro</option>
                     </select>
                 </div>
+                
 
                 <div class="input-group">
                     <label for="agua">Quantidade de água (L):</label>
@@ -77,8 +79,23 @@
             </div>
         </form>
     </dialog>
+<!-- Dialog de VISUALIZAÇÃO das metas -->
+<dialog id="viewDialog">
+  <h2>Metas do dia <span id="viewDia"></span></h2>
 
-    <div data-include="/views/components/footer.html"></div>    
+  <div class="dialog-content">
+    <p><strong>Treino:</strong> <span id="viewTreino"></span></p>
+    <p><strong>Água:</strong> <span id="viewAgua"></span></p>
+    <p><strong>Sono:</strong> <span id="viewSono"></span></p>
+    <p><strong>Cumprida:</strong> <span id="viewConcluido"></span></p>
+  </div>
+
+  <div class="dialog-buttons">
+    <button type="button" id="closeViewBtn" class="cancel-btn">Fechar</button>
+  </div>
+</dialog>
+
+    <div data-include="../views/components/footer.html"></div>    
 </body>
 
 </html>

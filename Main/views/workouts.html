@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BodyQuest - Treinos</title>
+
+  <link rel="icon" href="../assets/images/iconbodyquest.png" type="image/png">
+
+  <link rel="stylesheet" href="/Main/assets/stylesheets/global.css">
+  <link rel="stylesheet" href="/Main/assets/stylesheets/standard.css">
+  <link rel="stylesheet" href="/Main/assets/stylesheets/workouts.css">
+
+  <script defer src="/Main/assets/javascript/includes.js"></script>
+  <script defer src="/Main/assets/javascript/workouts.js"></script>
+</head>
+
+<body>
+  <div data-include="../views/components/navbaar.html"></div>
+
+  <div class="page-wrap">
+    <section id="workouts" class="container">
+      <header class="workouts-header">
+        <div class="workouts-title">
+          <h1>Meus treinos</h1>
+          <p class="workouts-subtitle">
+            Cadastre e gerencie seus treinos. Adicione exercícios, séries,
+            repetições e duração de forma rápida.
+          </p>
+        </div>
+
+        <div class="workouts-actions">
+          <button type="button" id="add-workout-btn" class="btn primary">
+            Criar treino
+          </button>
+
+          <button type="button" id="open-btn" class="btn btn--ghost">
+            Adicionar exercício ao treino
+          </button>
+        </div>
+      </header>
+
+      <section class="workouts-content" aria-label="Lista de treinos">
+        <p class="workouts-empty" id="empty-workouts">
+          Você ainda não cadastrou nenhum treino.
+          Clique em <strong>Criar treino</strong> para começar.
+        </p>
+
+        <div id="workouts-grid" class="workouts-grid" aria-live="polite">
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <div id="add-workout" class="workout-modal" role="dialog" aria-labelledby="title-modal-workout" aria-hidden="true">
+    <div class="workout-modal__card">
+      <header class="workout-modal__header">
+        <h2 id="title-modal-workout">Criar treino</h2>
+      </header>
+
+      <form id="form-workout" class="workout-modal__form">
+        <div class="field">
+          <label for="name-workout">Nome do treino</label>
+          <input type="text" id="name-workout" name="name_workout" class="input"
+            placeholder="Ex.: Treino A, Pernas..." required />
+        </div>
+
+        <footer class="workout-modal__footer">
+          <button type="button" id="close-workout-btn" class="btn btn--ghost">
+            Cancelar
+          </button>
+          <button type="submit" class="btn primary">
+            Salvar treino
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-add-exercice" class="workout-modal" role="dialog" aria-labelledby="title-modal-exercice"
+    aria-hidden="true">
+    <div class="workout-modal__card">
+      <header class="workout-modal__header">
+        <h2 id="title-modal-exercice">Criar exercício</h2>
+      </header>
+
+      <form id="form-exercice" class="workout-modal__form">
+        <div class="field">
+          <label for="name-exercice">Nome do exercício</label>
+          <input type="text" id="name-exercice" name="name_exercice" class="input"
+            placeholder="Ex.: Supino reto, Corrida leve..." required />
+        </div>
+
+        <div class="field">
+          <span class="field-label">Tipo</span>
+          <div class="field-radio-group">
+            <label class="radio-pill">
+              <input type="radio" name="tipe_exercice" value="cardiovascular" required />
+              <span>Cardiovascular</span>
+            </label>
+
+            <label class="radio-pill">
+              <input type="radio" name="tipe_exercice" value="musculacao" required />
+              <span>Musculação</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field field-row">
+          <div class="field">
+            <label for="series">Séries</label>
+            <input type="number" id="series" name="series" class="input" min="1" step="1" placeholder="Ex.: 3" />
+          </div>
+
+          <div class="field">
+            <label for="reps">Repetições</label>
+            <input type="number" id="reps" name="reps" class="input" min="1" step="1" placeholder="Ex.: 10" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="duration">Duração (minutos)</label>
+          <input type="number" id="duration" name="duration" class="input" min="1" step="1" placeholder="Ex.: 30" />
+        </div>
+
+        <footer class="workout-modal__footer">
+          <button type="button" id="close-btn" class="btn btn--ghost">
+            Cancelar
+          </button>
+          <button type="submit" class="btn primary">
+            Salvar exercício
+          </button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <div data-include="../views/components/footer.html"></div>
+</body>
+
+</html>

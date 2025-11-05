@@ -1,0 +1,35 @@
+RODAR ESSAS PORRAS TODAS QUANDO ENTRAR EM UM NOVO PC
+
+
+
+CREATE DATABASE cadastro;
+USE cadastro;
+
+CREATE TABLE cadastro (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  nome_cadastro        VARCHAR(40)  NOT NULL,
+  email_cadastro       VARCHAR(50)  NOT NULL,
+  nascimento_cadastro  DATE         NOT NULL,
+  senha_cadastro       VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+
+  CREATE TABLE metas_diarias (
+  id           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  usuario_id   INT UNSIGNED NOT NULL,
+  dia          DATE NOT NULL,
+  treino       VARCHAR(50) NOT NULL,
+  agua_litros  DECIMAL(4,2) NOT NULL,
+  sono         VARCHAR(20) NOT NULL,
+  concluido    TINYINT(1) NOT NULL DEFAULT 0,
+  created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY uk_usuario_dia (usuario_id, dia),
+  CONSTRAINT fk_metas_usuario
+    FOREIGN KEY (usuario_id) REFERENCES cadastro(id)
+      ON DELETE CASCADE ON UPDATE CASCADE
+);
