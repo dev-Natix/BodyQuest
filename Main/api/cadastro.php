@@ -7,6 +7,9 @@
 
     $result = mysqli_query($conexao, "INSERT INTO cadastro(nome_cadastro,email_cadastro,nascimento_cadastro,senha_cadastro)
      VALUES('$nome','$email','$nascimento','$senha')");
-     
-  
+    if($result){
+      // Redireciona para a página principal com o modal de login aberto
+      header("Location: ../views/index.html?show=login");
+      exit();
+  }
 ?>

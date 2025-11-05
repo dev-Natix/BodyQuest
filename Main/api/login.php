@@ -1,23 +1,23 @@
 <?php
-    include_once('config.php');
-    $usuario = $_POST['email_login'];
-    $senha = $_POST['senha_login'];
+session_start();
+include_once('config.php');
 
-    $usuario = $conexao->real_escape_string($usuario);
+$usuario = $_POST['email_login'];
+$senha = $_POST['senha_login'];
 
-$result = mysqli_query($conexao,"SELECT senha_cadastro FROM cadastro WHERE email_cadastro = '$usuario'");
+$usuario = $conexao->real_escape_string($usuario);
 
-if ($result->num_rows == 1) {
-  $row = $result->fetch_assoc();
+$sql = "SELECT senha_cadastro FROM cadastro WHERE email_cadastro = '$usuario'";
+$result = mysqli_query($conexao, $sql);
 
-  if (password_verify($senha, $row['senha_cadastro'])) {
-    $_SESSION['usuario'] = $usuario;
-    
-  } else {
-    ;
-  }
-} else {
-  ;
+if ($result && $result->num_rows === 1) {
+    $row = $result->fetch_assoc();
+
+    if (password_verify($senha, $row['senha_cadastro'])) {
+        $_SESSION['usuario'] = $usuario;
+        header("Location: ../views/profile.html");
+        exit();
+    }
 }
 
 $conexao->close();

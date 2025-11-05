@@ -179,14 +179,14 @@
   <div class="modal" id="login">
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
       <h4 id="loginTitle">Entrar</h4>
-      <form class="form" method="post" action="">
+      <form class="form" method="post" action="../api/login.php">
         <div class="field">
           <label class="label" for="login-email">E-mail</label>
-          <input class="input" id="login-email" type="email" placeholder="voce@exemplo.com" required>
+          <input class="input" id="login-email" name="email_login" type="email" placeholder="voce@exemplo.com" required>
         </div>
         <div class="field">
           <label class="label" for="login-senha">Senha</label>
-          <input class="input" id="login-senha" type="password" placeholder="Mínimo 6 caracteres" required
+          <input class="input" id="login-senha" name="senha_login" type="password" placeholder="Mínimo 6 caracteres" required
             minlength="6">
         </div>
         <div class="actions">
@@ -201,22 +201,22 @@
   <div class="modal" id="cadastro">
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="cadTitle">
       <h4 id="cadTitle">Criar conta</h4>
-      <form class="form" method="post" action="" autocomplete="on" novalidate>
+      <form class="form" method="post" action="../api/cadastro.php" autocomplete="on" novalidate>
         <div class="field">
           <label class="label" for="nome">Nome completo</label>
-          <input class="input" id="nome" type="text" placeholder="">
+          <input class="input" id="nome" name="nome_cadastro" type="text" placeholder="">
         </div>
         <div class="field">
           <label class="label" for="email">E-mail</label>
-          <input class="input" id="email" name="email" type="email">
+          <input class="input" id="email" name="email_cadastro" type="email">
         </div>
         <div class="field">
           <label class="label" for="nascimento">Data de Nascimento</label>
-          <input class="input" type="date" id="nascimento" name="nascimento">
+          <input class="input" type="date" id="nascimento" name="nascimento_cadastro">
         </div>
         <div class="field">
           <label class="label" for="senha">Senha</label>
-          <input class="input" id="senha" name="senha" type="password" placeholder="Mínimo 6 caracteres">
+          <input class="input" id="senha" name="senha_cadastro" type="password" placeholder="Mínimo 6 caracteres">
         </div>
         <div class="field">
           <label class="label" for="senha">Confirme sua senha</label>
@@ -236,6 +236,26 @@
 
   <script src="../assets/javascript/index.js"></script>
   <script src="../assets/javascript/includes.js"></script>
+  
+    <script>
+  // Função para abrir o modal correspondente
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+  }
+
+  // Ao carregar a página, verifica se tem ?show=login na URL
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('show') === 'login') {
+    // Fecha o modal de cadastro, se estiver aberto
+    const cadModal = document.getElementById('cadastro');
+    if (cadModal) cadModal.classList.remove('open');
+
+    // Abre o modal de login
+    openModal('login');
+  }
+</script>
+
+
 </body>
 
 </html>
