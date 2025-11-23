@@ -20,5 +20,6 @@ if ($result && $result->num_rows === 1) {
     }
 }
 
+
 $conexao->close();
 ?>
