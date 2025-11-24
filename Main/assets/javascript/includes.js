@@ -1,18 +1,41 @@
+function initProfileMenu() {
+  const profileBtn = document.getElementById('profileBtn')
+  const profileMenu = document.getElementById('profileMenu')
 
-(async () => {
-  const slots = document.querySelectorAll('[data-include]');
-  const tasks = Array.from(slots).map(async (el) => {
-    const url = el.getAttribute('data-include');
-    const res = await fetch(url, { cache: 'no-cache' });
-    const html = await res.text();
-    
-    const wrapper = document.createElement('div');
-    wrapper.innerHTML = html;
-    el.replaceWith(...wrapper.childNodes);
-  });
+  if (!profileBtn || !profileMenu) return
 
-  await Promise.all(tasks);
+  profileBtn.addEventListener('click', function (event) {
+    event.stopPropagation()
+    const isOpen = profileMenu.classList.toggle('is-open')
+    profileBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+  })
 
-  document.dispatchEvent(new CustomEvent('partials:loaded'));
-})();
+  document.addEventListener('click', function () {
+    if (profileMenu.classList.contains('is-open')) {
+      profileMenu.classList.remove('is-open')
+      profileBtn.setAttribute('aria-expanded', 'false')
+    }
+  })
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+  const includes = document.querySelectorAll('[data-include]')
+  const promises = []
+
+  includes.forEach(function (el) {
+    const url = el.getAttribute('data-include')
+    promises.push(
+      fetch(url)
+        .then(function (response) {
+          return response.text()
+        })
+        .then(function (html) {
+          el.innerHTML = html
+        })
+    )
+  })
+
+  Promise.all(promises).then(function () {
+    initProfileMenu()
+  })
+})
