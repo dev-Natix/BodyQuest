@@ -1,7 +1,4 @@
 <?php
-// BodyQuest/Main/api/metas.php
-
-// garante que só chama session_start se ainda não tiver sessão
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -10,26 +7,32 @@ header('Content-Type: application/json; charset=utf-8');
 
 include_once 'config.php';
 
-$usuarioId = $_SESSION['id'] 
-    ?? $_SESSION['user_id'] 
-    ?? $_SESSION['usuario_id'] 
+if ($conexao->connect_error) {
+    echo json_encode([
+        'sucesso'  => false,
+        'mensagem' => 'Erro na conexão com o banco: ' . $conexao->connect_error
+    ]);
+    exit;
+}
+
+$conexao->set_charset('utf8mb4');
+
+$usuarioId = $_SESSION['usuario_id']
+    ?? $_SESSION['user_id']
+    ?? $_SESSION['id']
     ?? null;
 
 if (!$usuarioId) {
-    $usuarioId = 1;
+    echo json_encode([
+        'sucesso'  => false,
+        'mensagem' => 'Usuário não autenticado.'
+    ]);
+    exit;
 }
 
 $usuarioId = (int)$usuarioId;
-$method = $_SERVER['REQUEST_METHOD'];
+$method    = $_SERVER['REQUEST_METHOD'];
 
-
-
-$usuarioId = (int)$usuarioId;
-$method = $_SERVER['REQUEST_METHOD'];
-
-/**
- * Regra de meta cumprida (mesma lógica do JS)
- */
 function metasCumpridasPHP(string $treino, float $agua, string $sono): bool {
     $treinoOk = strtolower($treino) !== 'nenhum';
     $aguaOk   = $agua > 3;
@@ -38,7 +41,6 @@ function metasCumpridasPHP(string $treino, float $agua, string $sono): bool {
 }
 
 if ($method === 'GET') {
-    // ---------- LISTAR METAS ----------
     $sql = "SELECT 
               id,
               DATE_FORMAT(dia, '%d/%m/%Y') AS dia_formatado,
@@ -72,7 +74,6 @@ if ($method === 'GET') {
 }
 
 if ($method === 'POST') {
-    // ---------- CRIAR OU ATUALIZAR META ----------
     $input = json_decode(file_get_contents('php://input'), true) ?: [];
 
     $idMeta = isset($input['id']) ? (int)$input['id'] : 0;
@@ -91,10 +92,8 @@ if ($method === 'POST') {
     $concluido = metasCumpridasPHP($treino, $aguaFloat, $sono) ? 1 : 0;
 
     if ($idMeta <= 0) {
-        // ===== NOVA META DE HOJE =====
         $diaHoje = date('Y-m-d');
 
-        // já existe meta de hoje?
         $check = $conexao->prepare(
             "SELECT id FROM metas_diarias WHERE usuario_id = ? AND dia = ?"
         );
@@ -126,7 +125,6 @@ if ($method === 'POST') {
         }
         exit;
     } else {
-        // ===== ATUALIZAR META EXISTENTE =====
         $stmt = $conexao->prepare(
             "UPDATE metas_diarias
              SET treino = ?, agua_litros = ?, sono = ?, concluido = ?
@@ -144,6 +142,5 @@ if ($method === 'POST') {
     }
 }
 
-// se cair aqui, método não suportado
 http_response_code(405);
 echo json_encode(['sucesso' => false, 'mensagem' => 'Método não permitido']);

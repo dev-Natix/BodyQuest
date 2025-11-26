@@ -198,3 +198,8 @@ footer{
     @media (max-width: 980px){
       .nav-actions{gap:8px}
 }
+
+.nav-main-btn {
+  padding-inline: 1.5rem;
+  font-weight: 600;
+}

@@ -1,80 +1,108 @@
-
-(() => {
-  const form   = document.getElementById('form-perfil');
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('form-perfil');
   if (!form) return;
 
-  const peso   = document.getElementById('peso');
-  const altura = document.getElementById('altura');
-
-  const ePeso   = document.getElementById('e-peso');
-  const eAltura = document.getElementById('e-altura');
-  const eGen    = document.getElementById('e-genero');
-  const eTreino = document.getElementById('e-treino');
-  const eOPeso  = document.getElementById('e-opeso');
-
-  const rGenero = () => form.querySelectorAll('input[name="genero"]');
-  const rOPeso  = () => form.querySelectorAll('input[name="objetivoPeso"]');
-
-  const cMuscu  = document.getElementById('t-muscu');
-  const cCorr   = document.getElementById('t-corrida');
-  const cAmbos  = document.getElementById('t-ambos');
-
-  // UX: "Ambos" é exclusivo dos outros
-  if (cAmbos && cMuscu && cCorr) {
-    cAmbos.addEventListener('change', () => {
-      if (cAmbos.checked) { cMuscu.checked = false; cCorr.checked = false; }
-    });
-    [cMuscu, cCorr].forEach(el => el.addEventListener('change', () => {
-      if (el.checked) cAmbos.checked = false;
-    }));
+  function setError(id, msg) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = msg || '';
   }
 
-  // Helpers
-  const setErr = (el, msg) => { if (el) el.textContent = msg || ''; };
-  const toNum  = (v) => Number(String(v).replace(',', '.'));
+  function clearErrors() {
+    setError('e-peso', '');
+    setError('e-altura', '');
+    setError('e-genero', '');
+    setError('e-treino', '');
+    setError('e-opeso', '');
+  }
 
-  // Validação
-  form.addEventListener('submit', (e) => {
+  function validateForm() {
+    clearErrors();
     let ok = true;
 
-    // limpa mensagens
-    [ePeso, eAltura, eGen, eTreino, eOPeso].forEach(el => setErr(el, ''));
+    const peso = document.getElementById('peso');
+    const altura = document.getElementById('altura');
 
-    // Peso (kg): 20–400 (ajuste se quiser)
-    const vPeso = toNum(peso.value);
-    if (!vPeso) { setErr(ePeso, 'Informe seu peso.'); ok = false; }
-    else if (vPeso < 20 || vPeso > 400) { setErr(ePeso, 'Peso inválido (20 a 400 kg).'); ok = false; }
+    if (peso && peso.value) {
+      const v = parseFloat(peso.value.replace(',', '.'));
+      if (Number.isNaN(v) || v <= 0) {
+        setError('e-peso', 'Informe um peso válido.');
+        ok = false;
+      }
+    }
 
-    // Altura (m): 1.20–2.50
-    const vAlt = toNum(altura.value);
-    if (!vAlt) { setErr(eAltura, 'Informe sua altura.'); ok = false; }
-    else if (vAlt < 1.2 || vAlt > 2.5) { setErr(eAltura, 'Altura inválida (1.20 a 2.50 m).'); ok = false; }
+    if (altura && altura.value) {
+      const v = parseFloat(altura.value.replace(',', '.'));
+      if (Number.isNaN(v) || v <= 0) {
+        setError('e-altura', 'Informe uma altura válida.');
+        ok = false;
+      }
+    }
 
-    // Gênero: obrigatório
-    const genChecked = Array.from(rGenero()).some(r => r.checked);
-    if (!genChecked) { setErr(eGen, 'Selecione uma opção.'); ok = false; }
+    const genero = form.querySelector('input[name="genero"]:checked');
+    if (!genero) {
+      setError('e-genero', 'Selecione uma opção.');
+      ok = false;
+    }
 
-    // Objetivo de treino: pelo menos 1 (musculação, corrida ou ambos)
-    const treinoChecked = (cMuscu?.checked || cCorr?.checked || cAmbos?.checked);
-    if (!treinoChecked) { setErr(eTreino, 'Escolha pelo menos uma opção.'); ok = false; }
+    const objetivosTreino = form.querySelectorAll('input[name="objetivoTreino[]"]:checked');
+    if (objetivosTreino.length === 0) {
+      setError('e-treino', 'Escolha pelo menos um objetivo de treino.');
+      ok = false;
+    }
 
-    // Objetivo de peso (radio): obrigatório
-    const opesoChecked = Array.from(rOPeso()).some(r => r.checked);
-    if (!opesoChecked) { setErr(eOPeso, 'Selecione seu objetivo.'); ok = false; }
+    const objetivoPeso = form.querySelector('input[name="objetivoPeso"]:checked');
+    if (!objetivoPeso) {
+      setError('e-opeso', 'Selecione um objetivo de peso.');
+      ok = false;
+    }
 
-    if (!ok) e.preventDefault();
+    return ok;
+  }
+
+  form.addEventListener('submit', (e) => {
+    if (!validateForm()) {
+      e.preventDefault();
+    }
   });
 
-  // Limpa mensagens ao digitar/tocar
-  ['input','change'].forEach(evt => {
-    form.addEventListener(evt, (ev) => {
-      const id = ev.target?.id;
-      if (id === 'peso')   setErr(ePeso, '');
-      if (id === 'altura') setErr(eAltura, '');
-      if (ev.target?.name === 'genero')       setErr(eGen, '');
-      if (ev.target?.name?.startsWith('objetivoTreino')) setErr(eTreino, '');
-      if (ev.target?.name === 'objetivoPeso') setErr(eOPeso, '');
+  fetch('../api/buscar_perfil.php')
+    .then(resp => resp.json())
+    .then(data => {
+      if (!data.ok || !data.perfil) return;
+      const p = data.perfil;
+
+      const peso = document.getElementById('peso');
+      const altura = document.getElementById('altura');
+      if (peso && p.peso !== null) peso.value = p.peso;
+      if (altura && p.altura !== null) altura.value = p.altura;
+
+      if (p.genero) {
+        const generoInput = document.querySelector(
+          `input[name="genero"][value="${p.genero}"]`
+        );
+        if (generoInput) generoInput.checked = true;
+      }
+
+      const objetivosTreino = (p.objetivo_treino || '')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      objetivosTreino.forEach(val => {
+        const checkbox = document.querySelector(
+          `input[name="objetivoTreino[]"][value="${val}"]`
+        );
+        if (checkbox) checkbox.checked = true;
+      });
+
+      if (p.objetivo_peso) {
+        const objetivoPesoInput = document.querySelector(
+          `input[name="objetivoPeso"][value="${p.objetivo_peso}"]`
+        );
+        if (objetivoPesoInput) objetivoPesoInput.checked = true;
+      }
+    })
+    .catch(err => {
+      console.error('Erro ao carregar perfil:', err);
     });
-  });
-})();
-
+});

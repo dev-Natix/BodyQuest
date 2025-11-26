@@ -12,9 +12,8 @@ const viewAgua      = document.getElementById("viewAgua");
 const viewSono      = document.getElementById("viewSono");
 const viewConcluido = document.getElementById("viewConcluido");
 
-// Array em memória vindo do banco
 let tasks = [];
-let editingTaskId = null; // id da meta sendo editada
+let editingTaskId = null; 
 
 function getTodayDate() {
   const now = new Date();
@@ -24,7 +23,6 @@ function getTodayDate() {
   return `${day}/${month}/${year}`;
 }
 
-// ------------------ Metas cumpridas (JS, só para exibição se precisar) ------------------
 function metasCumpridas(treino, agua, sono) {
   const treinoOk = treino !== "Nenhum";
   const aguaOk   = parseFloat(String(agua).replace(",", ".")) > 3;
@@ -32,18 +30,17 @@ function metasCumpridas(treino, agua, sono) {
   return treinoOk && aguaOk && sonoOk;
 }
 
-// ------------------ Chamar API ------------------
 async function carregarMetas() {
   try {
-    const resp = await fetch("../api/metas.php"); // GET
+    const resp = await fetch("../api/metas.php"); 
     if (!resp.ok) throw new Error("Erro ao carregar metas");
     const data = await resp.json();
 
     tasks = data.map(item => ({
       id: item.id,
-      dia: item.dia,             // já vem formatado dd/mm/yyyy do PHP
+      dia: item.dia,             
       treino: item.treino,
-      agua: item.agua,           // número (float)
+      agua: item.agua,           
       sono: item.sono,
       concluido: !!item.concluido,
     }));
@@ -67,7 +64,6 @@ async function salvarOuAtualizarMeta({ id = 0, treino, agua, sono }) {
   }
 }
 
-// ------------------ Atualizar tabela ------------------
 function updateTable() {
   tasksTable.innerHTML = "";
 
@@ -78,7 +74,6 @@ function updateTable() {
     const tdAlterar  = document.createElement("td");
     const tdVerMetas = document.createElement("td");
 
-    // para modo responsivo (CSS usa data-label)
     tdDia.dataset.label      = "Dia";
     tdMeta.dataset.label     = "Metas concluídas";
     tdAlterar.dataset.label  = "Alterar";
@@ -87,7 +82,6 @@ function updateTable() {
     tdDia.textContent  = task.dia;
     tdMeta.textContent = task.concluido ? "Sim" : "Não";
 
-    // Botão "Ver metas"
     const viewLink = document.createElement("a");
     viewLink.href = "#";
     viewLink.textContent = "Ver";
@@ -97,14 +91,13 @@ function updateTable() {
 
       viewDia.textContent       = task.dia;
       viewTreino.textContent    = task.treino;
-      viewAgua.textContent      = `${task.agua}L`; // 1L, 3.5L etc
+      viewAgua.textContent      = `${task.agua}L`; 
       viewSono.textContent      = task.sono;
       viewConcluido.textContent = task.concluido ? "Sim" : "Não";
 
       viewDialog.showModal();
     });
 
-    // Botão "Alterar metas"
     const editLink = document.createElement("a");
     editLink.href = "#";
     editLink.textContent = "Alterar Metas";
@@ -139,7 +132,6 @@ function updateTable() {
   });
 }
 
-// ------------------ Adicionar nova meta ------------------
 addTaskBtn.addEventListener("click", () => {
   const today = getTodayDate();
 
@@ -148,7 +140,6 @@ addTaskBtn.addEventListener("click", () => {
     return;
   }
 
-  // limpa campos
   document.getElementById("treino").value = "Nenhum";
   document.getElementById("agua").value   = "";
   document.getElementById("sono").value   = "mais de 8h";
@@ -165,7 +156,6 @@ cancelBtn.addEventListener("click", () => {
   taskDialog.close();
 });
 
-// ------------------ Salvar / Alterar (submit do form) ------------------
 taskForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -203,5 +193,4 @@ closeViewBtn.addEventListener("click", () => {
   viewDialog.close();
 });
 
-// Inicializa carregando do banco
 carregarMetas();

@@ -17,7 +17,7 @@ CREATE TABLE cadastro (
   COLLATE = utf8mb4_general_ci;
 
 
-  CREATE TABLE metas_diarias (
+CREATE TABLE metas_diarias (
   id           INT UNSIGNED NOT NULL AUTO_INCREMENT,
   usuario_id   INT UNSIGNED NOT NULL,
   dia          DATE NOT NULL,
@@ -30,6 +30,71 @@ CREATE TABLE cadastro (
   PRIMARY KEY (id),
   UNIQUE KEY uk_usuario_dia (usuario_id, dia),
   CONSTRAINT fk_metas_usuario
-    FOREIGN KEY (usuario_id) REFERENCES cadastro(id)
-      ON DELETE CASCADE ON UPDATE CASCADE
-);
+    FOREIGN KEY (usuario_id)
+    REFERENCES cadastro(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+
+
+CREATE TABLE `perfil_usuario` (
+  `usuario_id`      int(10) UNSIGNED NOT NULL,
+  `peso`            decimal(5,2)     DEFAULT NULL,  
+  `altura`          decimal(4,2)     DEFAULT NULL,  
+  `genero`          varchar(20)      DEFAULT NULL,  
+  `objetivo_treino` varchar(100)     DEFAULT NULL,  
+  `objetivo_peso`   varchar(20)      DEFAULT NULL,  
+  `created_at`      timestamp        NOT NULL DEFAULT current_timestamp(),
+  `updated_at`      timestamp        NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`usuario_id`),
+  CONSTRAINT `fk_perfil_usuario`
+    FOREIGN KEY (`usuario_id`) REFERENCES `cadastro` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_general_ci;
+
+
+  CREATE TABLE `treinos` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(10) UNSIGNED NOT NULL,
+  `nome_treino` varchar(60) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_treinos_usuario` (`usuario_id`),
+  CONSTRAINT `fk_treinos_usuario`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `cadastro` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_general_ci;
+
+
+
+CREATE TABLE `exercicios_treino` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `treino_id` int(10) UNSIGNED NOT NULL,
+  `nome_exercicio` varchar(80) NOT NULL,
+  `tipo_exercicio` enum('cardiovascular','musculacao') NOT NULL,
+  `series` tinyint UNSIGNED DEFAULT NULL,
+  `repeticoes` tinyint UNSIGNED DEFAULT NULL,
+  `duracao_minutos` smallint UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `idx_exercicios_treino_treino` (`treino_id`),
+  CONSTRAINT `fk_exercicios_treino_treino`
+    FOREIGN KEY (`treino_id`)
+    REFERENCES `treinos` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB
+  DEFAULT CHARSET=utf8mb4
+  COLLATE=utf8mb4_general_ci;

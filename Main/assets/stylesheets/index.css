@@ -139,3 +139,26 @@
       }
       .nav-actions{gap:8px}
     }
+
+    .logout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  text-decoration: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  background: transparent;
+  color: #f97373;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  margin-right: 0.5rem;
+}
+
+.logout-btn:hover {
+  background-color: rgba(248, 113, 113, 0.15);
+  color: #fecaca;
+  transform: scale(1.05);
+}

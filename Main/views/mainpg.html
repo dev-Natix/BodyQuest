@@ -1,22 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BodyQuest</title>
-    <link rel="icon" href="../assets/images/iconbodyquest.png" type="image/png">
-    <link rel="stylesheet" href="../assets/stylesheets/global.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BodyQuest</title>
+  <link rel="icon" href="../assets/images/iconbodyquest.png" type="image/png">
+  <link rel="stylesheet" href="../assets/stylesheets/global.css">
+  <link rel="stylesheet" href="../assets/stylesheets/home.css">
 </head>
-<body>
-    <div data-include="../views/components/navbaar.html"></div>
+<body class="body-wrap">
+  <div data-include="../views/components/navbaar.html"></div>
 
-    <div data-include="../views/components/footer.html"></div>
+  <main class="page-wrap">
+    <section class="container dashboard">
+      <header class="dashboard-header">
+        <h1 class="h2">
+          Olá, <span id="user-name">aventureiro</span>!
+        </h1>
+        <p class="p">Veja um resumo rápido do seu dia na BodyQuest.</p>
+      </header>
 
-    <script src="../assets/javascript/includes.js"></script>
+      <div class="dashboard-grid">
+        <article id="card-birthday" class="dashboard-card dashboard-card--birthday" style="display:none;">
+          <div class="dashboard-card__header">
+            <h2 class="h3">Feliz aniversário! 🎂</h2>
+          </div>
+          <p id="birthday-text" class="p-sm">
+            Que o seu dia seja cheio de conquistas — dentro e fora da BodyQuest!
+          </p>
+        </article>
 
-    
+        <article id="card-meta" class="dashboard-card dashboard-card--neutral">
+          <div class="dashboard-card__header">
+            <h2 class="h3">Status das metas de hoje</h2>
+          </div>
+          <p id="meta-status-text" class="p-sm">Carregando suas metas...</p>
+          <p id="meta-status-detail" class="p-xs muted"></p>
+          <div class="dashboard-card__actions">
+            <a href="../views/tasks.html" class="btn primary">Ver metas diárias</a>
+          </div>
+        </article>
 
+        <article id="card-workout" class="dashboard-card">
+          <div class="dashboard-card__header">
+            <h2 class="h3">Treino do dia</h2>
+          </div>
+          <p id="workout-title" class="p-sm">Carregando treino...</p>
+          <ul id="workout-exercises" class="dashboard-list"></ul>
+          <div class="dashboard-card__actions">
+            <a href="../views/workouts.html" class="btn btn--ghost">Gerenciar treinos</a>
+          </div>
+        </article>
+
+        <article class="dashboard-card">
+          <div class="dashboard-card__header">
+            <h2 class="h3">Seu perfil</h2>
+          </div>
+          <p class="p-sm">
+            Ajuste peso, altura e objetivos para deixar suas metas ainda mais personalizadas.
+          </p>
+          <div class="dashboard-card__actions">
+            <a href="../views/profile.html" class="btn primary">Editar perfil</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div data-include="../views/components/footer.html"></div>
+
+  <script src="../assets/javascript/includes.js"></script>
+  <script src="../assets/javascript/home.js"></script>
 </body>
 </html>
-
-

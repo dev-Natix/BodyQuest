@@ -258,3 +258,44 @@
   max-width: 480px;
   width: 90%;
 }
+
+
+.workout-card {
+  position: relative;
+  cursor: pointer;
+}
+
+.workout-card--selected::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid #22c55e;
+  pointer-events: none;
+}
+
+
+.workout-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.workout-card__delete {
+  background: transparent;
+  border: none;
+  color: #f97373;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.25rem;
+  border-radius: 999px;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.workout-card__delete:hover {
+  background-color: rgba(248, 113, 113, 0.15);
+  color: #fecaca;
+  transform: scale(1.05);
+}
